@@ -1,0 +1,11 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+create_table :orders, force: :cascade do |t|
+  t.integer :purchased_user_id, null: false
+  t.integer :item_id, null: false
+  t.integer :sold_point, null: false
+  t.timestamps
+end
+
+add_foreign_key :orders, :users, column: :purchased_user_id
+add_foreign_key :orders, :items, column: :item_id

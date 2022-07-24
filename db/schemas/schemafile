@@ -1,0 +1,7 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'users.schema'
+require 'items.schema'
+require 'user_items.schema'
+require 'orders.schema'
+require 'statuses.schema'
