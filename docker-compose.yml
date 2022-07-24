@@ -17,15 +17,12 @@ services:
     image: takara/free-market-api:1.0.0
     stdin_open: true
     tty: true
+    ports:
+      - "3000:3000"
     volumes:
       - .:/app
       - gem_data:/usr/local/bundle
-    command: sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s"
-
-
-  runner:
-    <<: *app
-    command: /bin/sh
+    command: sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 3000"
 
 volumes:
   postgres_volume:
