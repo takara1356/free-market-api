@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: "postgres:12.11"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app: &app
+    build:
+      context: .
+      dockerfile: .
+    image: takara/free-market-api:1.0.0
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+    command: sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s"
+
+
+  runner:
+    <<: *app
+    command: /bin/sh
+
+volumes:
+  postgres_volume:
