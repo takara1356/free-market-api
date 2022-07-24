@@ -19,6 +19,7 @@ services:
     tty: true
     volumes:
       - .:/app
+      - gem_data:/usr/local/bundle
     command: sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s"
 
 
@@ -28,3 +29,4 @@ services:
 
 volumes:
   postgres_volume:
+  gem_data:
