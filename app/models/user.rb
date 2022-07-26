@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   def self.valid_password(password, password_confirmation)
     if password != password_confirmation
-      raise "パスワードが一致しません"
+      raise InvalidParamError.new('パスワードが一致しません')
     end
   end
 end
