@@ -17,6 +17,11 @@ class User < ApplicationRecord
     end
   end
 
+  def save_new_token!(token)
+    token_digest = Digest::SHA256.digest(token)
+    update!(token: token)
+  end
+
   private
 
   def self.valid_password(password, password_confirmation)
@@ -31,10 +36,5 @@ class User < ApplicationRecord
     else
       raise AuthenticationError.new('パスワードが一致していない、もしくはユーザーが存在しません')
     end
-  end
-
-  def save_new_token!(token)
-    token_digest = Digest::SHA256.digest(token)
-    update!(token: token)
   end
 end
