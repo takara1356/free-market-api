@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   
   # ユーザー関連
   post 'users' => 'users#create'
+
+  # ログイン
+  post 'login' => 'auth#login'
 end

@@ -24,4 +24,17 @@ class User < ApplicationRecord
       raise InvalidParamError.new('パスワードが一致しません')
     end
   end
+
+  def self.account_authenticate(user, params)
+    if user.authenticate(params[:password])
+      user
+    else
+      raise AuthenticationError.new('パスワードが一致していない、もしくはユーザーが存在しません')
+    end
+  end
+
+  def save_new_token!(token)
+    token_digest = Digest::SHA256.digest(token)
+    update!(token: token)
+  end
 end
