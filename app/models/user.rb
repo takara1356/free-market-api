@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # TODO: パラメータのバリデーション
   has_secure_password
 
-  RegistrationRewardPoint = 10000
+  REGISTRATION_REWARD_POINT = 10000
 
   def self.create(params)
     valid_password(params[:password], params[:password_confirmation])
@@ -12,7 +12,7 @@ class User < ApplicationRecord
               email: params[:email],
               password: params[:password],
               password_confirmation: params[:password_confirmation],
-              point: RegistrationRewardPoint)
+              point: REGISTRATION_REWARD_POINT)
       user
     end
   end
@@ -34,7 +34,7 @@ class User < ApplicationRecord
     if user.authenticate(params[:password])
       user
     else
-      raise AuthenticationError.new('パスワードが一致していない、もしくはユーザーが存在しません')
+      raise AuthenticationError.new(AuthenticationError::DEFAULT_MESSAGE)
     end
   end
 end

@@ -3,7 +3,7 @@ class AuthController < ApplicationController
 
   def login
     user = User.find_by(email: login_params[:email])
-    raise AuthenticationError.new('パスワードが一致していない、もしくはユーザーが存在しません') if user.blank?
+    raise AuthenticationError.new(AuthenticationError::DEFAULT_MESSAGE) if user.blank?
     token = SecureRandom.urlsafe_base64
 
     valid = User.account_authenticate(user, login_params)
