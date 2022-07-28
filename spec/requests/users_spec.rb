@@ -27,7 +27,7 @@ RSpec.describe 'Users', type: :request do
 
         it '登録後、正しい入会特典ポイントが付与されている' do
           post '/users', params: { user: user_params }
-          expect(user.point).to eq(User::RegistrationRewardPoint)
+          expect(user.point).to eq(User::REGISTRATION_REWARD_POINT)
         end
       end
     end
