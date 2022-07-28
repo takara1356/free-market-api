@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+  skip_before_action :authenticate_token, only: [:login]
 
   def login
     user = User.find_by(email: login_params[:email])
@@ -10,6 +11,8 @@ class AuthController < ApplicationController
     ActiveRecord::Base.transaction do
       user.save_new_token!(token)
     end
+
+    render json: { token: token }
   end
 
   private
