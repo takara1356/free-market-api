@@ -6,7 +6,6 @@ class ItemController < ApplicationController
     item_params_hash = item_params.to_h
     item_params_hash.store('status_id', Status.on_sale_id)
 
-    # トランザクション貼る
     ActiveRecord::Base.transaction do
       @item = @current_user.items.create!(item_params_hash)
     end
