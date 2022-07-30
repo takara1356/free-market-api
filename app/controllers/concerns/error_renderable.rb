@@ -15,7 +15,7 @@ module ErrorRenderable
     end
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-      render status: 404, json: { error: { class: e.class, detail: e.detail } }
+      render status: 404, json: { error: { class: e.class, detail: e.message } }
     end
 
     rescue_from AuthenticationError do |e|

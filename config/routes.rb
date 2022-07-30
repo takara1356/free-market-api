@@ -12,4 +12,7 @@ Rails.application.routes.draw do
 
   # 商品情報更新
   patch 'items/:id' => 'items#update'
+
+  # 商品削除
+  delete 'items/:id' => 'items#delete'
 end

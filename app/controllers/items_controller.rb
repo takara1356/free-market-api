@@ -23,9 +23,23 @@ class ItemsController < ApplicationController
     render json: item
   end
 
+  def delete
+    set_item(params['id'])
+
+    ActiveRecord::Base.transaction do
+      @item.destroy!
+    end
+
+    render json: { message: 'success' }
+  end
+
   private
 
   def item_params
     params.require(:item_info).permit(:name, :description, :price)
+  end
+
+  def set_item(id)
+    @item = Item.find_by!(id: id)
   end
 end
