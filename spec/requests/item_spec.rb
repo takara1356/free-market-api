@@ -17,16 +17,16 @@ RSpec.describe 'Items', type: :request do
     context '正常系' do
       context '正しいパラメータの場合' do
         it '200のステータスが返る' do
-          post '/item', params: item_params, headers: headers
+          post '/items', params: item_params, headers: headers
           expect(response).to have_http_status(200)
         end
 
         it 'ユーザーに紐付く商品が1点追加されている' do
-          expect{ post '/item', params: item_params, headers: headers }.to change{ user.items.count }.by(1)
+          expect{ post '/items', params: item_params, headers: headers }.to change{ user.items.count }.by(1)
         end
 
         it '追加した商品のステータスが販売中になっている' do
-          post '/item', params: item_params, headers: headers
+          post '/items', params: item_params, headers: headers
           expect(user.items.first.status_id).to eq(Status.on_sale_id)
         end
       end
@@ -45,12 +45,12 @@ RSpec.describe 'Items', type: :request do
         end
 
         it '400のステータスを返す' do
-          post '/item', params: item_params_with_no_item_name, headers: headers
+          post '/items', params: item_params_with_no_item_name, headers: headers
           expect(response).to have_http_status(400)
         end
 
         it 'ユーザーに紐付く商品の数が変わらない' do
-          expect{ post '/item', params: item_params_with_no_item_name, headers: headers }.to change{ user.items.count }.by(0)
+          expect{ post '/items', params: item_params_with_no_item_name, headers: headers }.to change{ user.items.count }.by(0)
         end
       end
 
@@ -66,12 +66,12 @@ RSpec.describe 'Items', type: :request do
         end
 
         it '400のステータスを返す' do
-          post '/item', params: item_params_with_less_than_minimum_amount, headers: headers
+          post '/items', params: item_params_with_less_than_minimum_amount, headers: headers
           expect(response).to have_http_status(400)
         end
 
         it 'ユーザーに紐付く商品の数が変わらない' do
-          expect{ post '/item', params: item_params_with_less_than_minimum_amount, headers: headers }.to change{ user.items.count }.by(0)
+          expect{ post '/items', params: item_params_with_less_than_minimum_amount, headers: headers }.to change{ user.items.count }.by(0)
         end
       end
 
@@ -87,12 +87,12 @@ RSpec.describe 'Items', type: :request do
         end
 
         it '400のステータスを返す' do
-          post '/item', params: item_params_with_no_integer_price, headers: headers
+          post '/items', params: item_params_with_no_integer_price, headers: headers
           expect(response).to have_http_status(400)
         end
 
         it 'ユーザーに紐付く商品の数が変わらない' do
-          expect{ post '/item', params: item_params_with_no_integer_price, headers: headers }.to change{ user.items.count }.by(0)
+          expect{ post '/items', params: item_params_with_no_integer_price, headers: headers }.to change{ user.items.count }.by(0)
         end
       end
 
