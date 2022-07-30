@@ -1,4 +1,4 @@
-class ItemController < ApplicationController
+class ItemsController < ApplicationController
   before_action :authenticate_token
 
   # ユーザーによる商品出品

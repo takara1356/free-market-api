@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   post 'login' => 'auth#login'
 
   # 商品出品
-  post 'items' => 'item#create'
+  post 'items' => 'items#create'
 
   # 商品情報更新
-  patch 'items/:id' => 'item#update'
+  patch 'items/:id' => 'items#update'
 end
