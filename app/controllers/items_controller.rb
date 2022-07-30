@@ -13,16 +13,18 @@ class ItemsController < ApplicationController
     render json: @item
   end
 
+  # 商品更新
   def update
-    item = Item.find_by(id: params['id'])
+    set_item(params['id'])
 
     ActiveRecord::Base.transaction do
-      item.update!(item_params)
+      @item.update!(item_params)
     end
 
-    render json: item
+    render json: @item
   end
 
+  # 商品削除
   def delete
     set_item(params['id'])
 
