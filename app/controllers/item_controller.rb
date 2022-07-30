@@ -13,6 +13,16 @@ class ItemController < ApplicationController
     render json: @item
   end
 
+  def update
+    item = Item.find_by(id: params['id'])
+
+    ActiveRecord::Base.transaction do
+      item.update!(item_params)
+    end
+
+    render json: item
+  end
+
   private
 
   def item_params

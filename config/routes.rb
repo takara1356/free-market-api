@@ -9,4 +9,7 @@ Rails.application.routes.draw do
 
   # 商品出品
   post 'items' => 'item#create'
+
+  # 商品情報更新
+  patch 'items/:id' => 'item#update'
 end
