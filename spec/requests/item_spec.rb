@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Items', type: :request do
-  describe 'POST /items' do
-    let!(:user) { FactoryBot.create(:user) }
-    let(:headers) {{ 'Authorization': "Bearer #{user.token}" }}
-    let(:item_params) do
-      {
-        item_info: {
-          name: "SQLアンチパターン 第2版",
-          description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
-          price: 1200
-        }
+  let!(:user) { FactoryBot.create(:user) }
+  let(:headers) {{ 'Authorization': "Bearer #{user.token}" }}
+  let(:item_params) do
+    {
+      item_info: {
+        name: "SQLアンチパターン 第2版",
+        description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+        price: 1200
       }
-    end
+    }
+  end
 
+  describe 'POST /items' do
     context '正常系' do
       context '正しいパラメータの場合' do
         it '200のステータスが返る' do
@@ -95,7 +95,117 @@ RSpec.describe 'Items', type: :request do
           expect{ post '/items', params: item_params_with_no_integer_price, headers: headers }.to change{ user.items.count }.by(0)
         end
       end
+    end
+  end
 
+  describe 'PATCH /items' do
+    # 事前に商品を登録しておく
+    before do
+      user.items << FactoryBot.create(:item)
+    end
+
+    let(:item) { user.items.last }
+
+    context '正常系' do
+      context '商品名を更新する場合' do
+        let(:update_item_params_with_name) do
+          {
+            item_info: {
+              # 版を更新
+              name: "SQLアンチパターン 第3版",
+              description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+              price: 1200
+            }
+          }
+        end
+
+        it '200のステータスが返る' do
+          patch "/items/#{item.id}", params: update_item_params_with_name, headers: headers
+          expect(response).to have_http_status(200)
+        end
+
+        it '商品名が更新される' do
+          patch "/items/#{item.id}", params: update_item_params_with_name, headers: headers
+          old_item_name = item.name
+          expect(item.reload.name).not_to eq(old_item_name)
+        end
+      end
+
+      context '商品説明を更新する場合' do
+        let(:update_item_params_with_description) do
+          {
+            item_info: {
+              name: "SQLアンチパターン 第2版",
+              # 商品説明を更新
+              description: "changed description",
+              price: 1200
+            }
+          }
+        end
+
+        it '200のステータスが返る' do
+          patch "/items/#{item.id}", params: update_item_params_with_description, headers: headers
+          expect(response).to have_http_status(200)
+        end
+
+        it '商品説明が更新される' do
+          patch "/items/#{item.id}", params: update_item_params_with_description, headers: headers
+          old_item_description = item.description
+          expect(item.reload.description).not_to eq(old_item_description)
+        end
+      end
+
+      context '価格を更新する場合' do
+        let(:update_item_params_with_price) do
+          {
+            item_info: {
+              name: "SQLアンチパターン 第2版",
+              description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+              # 価格を更新
+              price: 1500
+            }
+          }
+        end
+
+        it '200のステータスが返る' do
+          patch "/items/#{item.id}", params: update_item_params_with_price, headers: headers
+          expect(response).to have_http_status(200)
+        end
+
+        it '価格が更新される' do
+          patch "/items/#{item.id}", params: update_item_params_with_price, headers: headers
+          old_item_price = item.price
+          expect(item.reload.price).not_to eq(old_item_price)
+        end
+      end
+
+      context '全てのパラメータを同時に更新する場合' do
+        let(:update_item_params) do
+          {
+            item_info: {
+              # 全てのパラメータを更新
+              name: "SQLアンチパターン 第3版",
+              description: "changed description",
+              price: 1500
+            }
+          }
+        end
+
+        it '200のステータスが返る' do
+          patch "/items/#{item.id}", params: update_item_params, headers: headers
+          expect(response).to have_http_status(200)
+        end
+
+        it '全てのパラメータが更新される' do
+          patch "/items/#{item.id}", params: update_item_params, headers: headers
+          old_item_name = item.name
+          old_item_description = item.description
+          old_item_price = item.price
+          expect(item.reload.name).not_to eq(old_item_name)
+          expect(item.reload.description).not_to eq(old_item_description)
+          expect(item.reload.price).not_to eq(old_item_price)
+        end
+      end
     end
   end
 end
