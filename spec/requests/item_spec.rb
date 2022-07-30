@@ -208,4 +208,40 @@ RSpec.describe 'Items', type: :request do
       end
     end
   end
+
+  describe 'delete /items' do
+    let(:item) { user.items.last }
+
+    context '正常系' do
+      context '正しいパラメータの場合' do
+        # 事前に商品を登録しておく
+        before do
+          user.items << FactoryBot.create(:item)
+        end
+
+        it '200のステータスが返る' do
+          delete "/items/#{item.id}", headers: headers
+          expect(response).to have_http_status(200)
+        end
+
+        it 'ユーザーに紐付く商品が1点削除されている' do
+          expect{ delete "/items/#{item.id}", headers: headers }.to change{ user.items.count }.by(-1)
+        end
+      end
+    end
+
+    context '異常系' do
+      context '存在しない商品IDを指定した場合' do
+        before do
+          # 商品を全て削除しておく
+          Item.destroy_all
+        end
+
+        it '404のステータスが返る' do
+          delete "/items/1", headers: headers
+          expect(response).to have_http_status(404)
+        end
+      end
+    end
+  end
 end
