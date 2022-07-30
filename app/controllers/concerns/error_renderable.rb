@@ -3,8 +3,8 @@ module ErrorRenderable
 
   included do
     rescue_from StandardError do |e|
-      if ENV['RAILS_ENV'] == 'production'
-        render status: 500, json: { error: { class: e.class, detail: e.detail } }
+      if ENV['RAILS_ENV'] != 'development'
+        render status: 500, json: { error: { class: e.class, detail: e.message } }
       else
         raise
       end
@@ -20,6 +20,10 @@ module ErrorRenderable
 
     rescue_from AuthenticationError do |e|
       render status: 400, json: { error: { class: e.class, detail: e.detail } }
+    end
+
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      render status: 400, json: { error: { class: e.class, detail: e.message } }
     end
   end
 end
