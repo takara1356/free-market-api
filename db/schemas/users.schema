@@ -10,3 +10,4 @@ create_table :users, force: :cascade do |t|
 end
 
 add_index :users, [:email], unique: true
+add_index :users, [:token], unique: true

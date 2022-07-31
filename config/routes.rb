@@ -6,4 +6,13 @@ Rails.application.routes.draw do
 
   # ログイン
   post 'login' => 'auth#login'
+
+  # 商品出品
+  post 'items' => 'items#create'
+
+  # 商品情報更新
+  patch 'items/:id' => 'items#update'
+
+  # 商品削除
+  delete 'items/:id' => 'items#delete'
 end

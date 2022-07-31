@@ -2,6 +2,9 @@ class User < ApplicationRecord
   # TODO: パラメータのバリデーション
   has_secure_password
 
+  has_many :user_items
+  has_many :items, dependent: :destroy, through: :user_items
+
   REGISTRATION_REWARD_POINT = 10000
 
   def self.create(params)
