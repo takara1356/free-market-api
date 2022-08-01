@@ -15,4 +15,7 @@ Rails.application.routes.draw do
 
   # 商品削除
   delete 'items/:id' => 'items#delete'
+
+  # 商品購入
+  post 'items/:id/purchase' => 'items#purchase'
 end
