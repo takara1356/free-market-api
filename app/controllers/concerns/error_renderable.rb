@@ -25,5 +25,9 @@ module ErrorRenderable
     rescue_from ActiveRecord::RecordInvalid do |e|
       render status: 400, json: { error: { class: e.class, detail: e.message } }
     end
+
+    rescue_from InvalidOperationError do |e|
+      render status: 400, json: { error: { class: e.class, detail: e.detail } }
+    end
   end
 end

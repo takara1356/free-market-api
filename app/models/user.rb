@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :user_items
   has_many :items, dependent: :destroy, through: :user_items
+  has_many :orders, dependent: :destroy, foreign_key: :purchased_user_id
 
   REGISTRATION_REWARD_POINT = 10000
 

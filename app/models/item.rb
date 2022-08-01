@@ -6,4 +6,9 @@ class Item < ApplicationRecord
 
   has_one :user_item, dependent: :destroy
   has_one :user, through: :user_items
+  has_one :order
+
+  def update_status_to_sold_out
+    self.update(status_id: Status.sold_out_id)
+  end
 end
