@@ -1,5 +1,8 @@
 class User < ApplicationRecord
-  # TODO: パラメータのバリデーション
+  validates :name, presence: true
+  validates :password_digest, presence: true, uniqueness: true
+  validates :point, numericality: { only_integer: true }
+
   has_secure_password
 
   has_many :user_items
