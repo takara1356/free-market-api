@@ -3,8 +3,11 @@ services:
   db:
     image: "postgres:12.11"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --locale=C'
+      TZ: Asia/Tokyo
+
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     ports:
@@ -23,6 +26,8 @@ services:
       - .:/app
       - gem_data:/usr/local/bundle
     command: sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 3000"
+    environment:
+      TZ: Asia/Tokyo
 
 volumes:
   postgres_volume:
