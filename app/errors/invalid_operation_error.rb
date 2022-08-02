@@ -1,7 +1,7 @@
 class InvalidOperationError < RuntimeError
-  attr_accessor :detail
+  attr_accessor :message
 
-  def initialize(detail = nil)
-    @detail = detail ? detail : 'Internal Server Error'
+  def initialize(message = nil)
+    @message = message ? message : 'Internal Server Error'
   end
 end

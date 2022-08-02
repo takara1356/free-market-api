@@ -64,7 +64,7 @@ RSpec.describe 'Auth', type: :request do
 
         it '正しいエラーメッセージが返る' do
           post '/login', params: login_params_with_not_exists_user
-          expect(res_json['error']['detail']).to eq(AuthenticationError::DEFAULT_MESSAGE)
+          expect(res_json['error']['message']).to eq(AuthenticationError::DEFAULT_MESSAGE)
         end
       end
 
@@ -89,7 +89,7 @@ RSpec.describe 'Auth', type: :request do
 
         it '正しいエラーメッセージが返る' do
           post '/login', params: login_params_with_incorrect_password
-          expect(res_json['error']['detail']).to eq(AuthenticationError::DEFAULT_MESSAGE)
+          expect(res_json['error']['message']).to eq(AuthenticationError::DEFAULT_MESSAGE)
         end
       end
     end
