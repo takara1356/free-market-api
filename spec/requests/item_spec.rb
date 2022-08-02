@@ -6,8 +6,8 @@ RSpec.describe 'Items', type: :request do
   let(:item_params) do
     {
       item_info: {
-        name: "SQLアンチパターン 第2版",
-        description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+        name: 'SQLアンチパターン 第2版',
+        description: '特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。',
         price: 1200
       }
     }
@@ -37,8 +37,8 @@ RSpec.describe 'Items', type: :request do
         let(:item_params_with_no_item_name) do
           {
             item_info: {
-              name: "",
-              description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+              name: '',
+              description: '特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。',
               price: 1200
             }
           }
@@ -58,8 +58,8 @@ RSpec.describe 'Items', type: :request do
         let(:item_params_with_less_than_minimum_amount) do
           {
             item_info: {
-              name: "SQLアンチパターン 第2版",
-              description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+              name: 'SQLアンチパターン 第2版',
+              description: '特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。',
               price: 299
             }
           }
@@ -79,8 +79,8 @@ RSpec.describe 'Items', type: :request do
         let(:item_params_with_no_integer_price) do
           {
             item_info: {
-              name: "SQLアンチパターン 第2版",
-              description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+              name: 'SQLアンチパターン 第2版',
+              description: '特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。',
               price: 300.5
             }
           }
@@ -112,8 +112,8 @@ RSpec.describe 'Items', type: :request do
           {
             item_info: {
               # 版を更新
-              name: "SQLアンチパターン 第3版",
-              description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+              name: 'SQLアンチパターン 第3版',
+              description: '特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。',
               price: 1200
             }
           }
@@ -135,9 +135,9 @@ RSpec.describe 'Items', type: :request do
         let(:update_item_params_with_description) do
           {
             item_info: {
-              name: "SQLアンチパターン 第2版",
+              name: 'SQLアンチパターン 第2版',
               # 商品説明を更新
-              description: "changed description",
+              description: 'changed description',
               price: 1200
             }
           }
@@ -159,8 +159,8 @@ RSpec.describe 'Items', type: :request do
         let(:update_item_params_with_price) do
           {
             item_info: {
-              name: "SQLアンチパターン 第2版",
-              description: "特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。",
+              name: 'SQLアンチパターン 第2版',
+              description: '特に目立った汚れはありませんが、中古品であることをご理解の上ご購入お願い致します。',
               # 価格を更新
               price: 1500
             }
@@ -184,8 +184,8 @@ RSpec.describe 'Items', type: :request do
           {
             item_info: {
               # 全てのパラメータを更新
-              name: "SQLアンチパターン 第3版",
-              description: "changed description",
+              name: 'SQLアンチパターン 第3版',
+              description: 'changed description',
               price: 1500
             }
           }
@@ -238,7 +238,7 @@ RSpec.describe 'Items', type: :request do
         end
 
         it '404のステータスが返る' do
-          delete "/items/1", headers: headers
+          delete '/items/1', headers: headers
           expect(response).to have_http_status(404)
         end
       end
