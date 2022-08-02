@@ -15,6 +15,14 @@ class AuthController < ApplicationController
     render json: { token: token }
   end
 
+  def logout
+    ActiveRecord::Base.transaction do
+      @current_user.update!(token: nil)
+    end
+
+    render json: { message: 'ログアウトしました' }
+  end
+
   private
 
   def login_params

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   # ログイン
   post 'login' => 'auth#login'
 
+  # ログアウト
+  get 'logout' => 'auth#logout'
+
   # 商品出品
   post 'items' => 'items#create'
 
