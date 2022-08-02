@@ -1,4 +1,5 @@
 class Status < ApplicationRecord
+  validates :status, uniqueness: true
 
   def self.on_sale_id
     find_by(status: 'on_sale').id
