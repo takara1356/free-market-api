@@ -4,7 +4,8 @@ class AuthController < ApplicationController
   def login
     user = User.find_by(email: login_params[:email])
     raise AuthenticationError.new(AuthenticationError::DEFAULT_MESSAGE) if user.blank?
-    token = SecureRandom.urlsafe_base64
+    # token = SecureRandom.urlsafe_base64
+    token = 'sample_token'
 
     valid = User.account_authenticate(user, login_params)
 
