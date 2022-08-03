@@ -38,7 +38,7 @@ seed:
 create-db:
 	@docker-compose run --rm app rails db:create
 
-setup: bundle-install	create-db	migrate	seed ## 初回セットアップを実行します
+setup: up	bundle-install	create-db	migrate	seed ## 初回セットアップを実行します
 
 setup-test:	## データベースを初期化します
 	@docker-compose run --rm app rails db:create RAILS_ENV=test
