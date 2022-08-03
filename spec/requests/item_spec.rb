@@ -13,20 +13,22 @@ RSpec.describe 'Items', type: :request do
     }
   end
 
+  let(:throw_request) { post '/items', params: item_params, headers: headers }
+
   describe 'POST /items' do
     context '正常系' do
       context '正しいパラメータの場合' do
         it '200のステータスが返る' do
-          post '/items', params: item_params, headers: headers
+          throw_request
           expect(response).to have_http_status(200)
         end
 
         it 'ユーザーに紐付く商品が1点追加されている' do
-          expect{ post '/items', params: item_params, headers: headers }.to change{ user.items.count }.by(1)
+          expect{ throw_request }.to change{ user.items.count }.by(1)
         end
 
         it '追加した商品のステータスが販売中になっている' do
-          post '/items', params: item_params, headers: headers
+          throw_request
           expect(user.items.first.status_id).to eq(Status.on_sale_id)
         end
       end

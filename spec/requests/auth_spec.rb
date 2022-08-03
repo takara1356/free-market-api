@@ -13,6 +13,7 @@ RSpec.describe 'Auth', type: :request do
 
     let (:res_json) { JSON.parse(response.body) }
     let (:user) { User.find_by(email: user_params[:email]) }
+    let (:throw_request) { post '/login', params: login_params }
 
     context '正常系' do
       context '正しいパラメータの場合' do
@@ -30,17 +31,17 @@ RSpec.describe 'Auth', type: :request do
         end
 
         it '200のステータスが返る' do
-          post '/login', params: login_params
+          throw_request
           expect(response).to have_http_status(200)
         end
 
         it 'トークンが発行される' do
-          post '/login', params: login_params
+          throw_request
           expect(res_json['token']).to be_truthy
         end
 
         it '発行されたトークンとユーザーに紐付くトークンが一致する' do
-          post '/login', params: login_params
+          throw_request
           expect(res_json['token']).to eq(user.token)
         end
       end
