@@ -1,4 +1,4 @@
-.PHONY: build restart up down downv bundle-install rspec railsc migrate app log
+.PHONY: build restart up down downv bundle-install rspec railsc migrate app log seed create-db setup setup-db
 
 build:	## アプリイメージをビルドします
 	@docker-compose build
@@ -31,3 +31,16 @@ runner:	## シェルを起動します
 
 log:	## 全てのログを表示します
 	@docker-compose logs -f
+
+seed:
+	@docker-compose run --rm app rails db:seed
+
+create-db:
+	@docker-compose run --rm app rails db:create
+
+setup: bundle-install	create-db	migrate	seed ## 初回セットアップを実行します
+
+setup-test:	## データベースを初期化します
+	@docker-compose run --rm app rails db:create RAILS_ENV=test
+	@docker-compose run --rm app rails ridge:apply RAILS_ENV=test
+	@docker-compose run --rm app rails db:seed RAILS_ENV=test
