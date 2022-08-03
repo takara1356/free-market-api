@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_token, only: [:create]
 
+  # ユーザー新規登録
   def create
     user = User.create(user_params)
     render json: user

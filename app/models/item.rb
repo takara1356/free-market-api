@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   has_one :user, through: :user_items
   has_one :order
 
+  # 取引ステータスを売り切れに変更する
   def update_status_to_sold_out
     self.update(status_id: Status.sold_out_id)
   end
