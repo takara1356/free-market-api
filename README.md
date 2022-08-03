@@ -33,7 +33,7 @@ make rspec
 
 ## API request sumple
 
-#### create user
+#### create user(ユーザー登録)
 
 `POST /users`
 
@@ -52,7 +52,7 @@ curl --location --request POST 'localhost:3000/users' \
 }'
 ```
 
-#### login
+#### login(ログイン)
 
 `POST /login`
 
@@ -75,7 +75,7 @@ curl --request POST 'localhost:3000/login' \
 }
 ```
 
-#### logout
+#### logout(ログアウト)
 
 `GET /logout`
 
