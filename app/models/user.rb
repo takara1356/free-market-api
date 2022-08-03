@@ -25,7 +25,7 @@ class User < ApplicationRecord
   end
 
   def save_new_token!(token)
-    token_digest = Digest::SHA256.digest(token)
+    # token_digest = Digest::SHA256.digest(token)
     update!(token: token)
   end
 
