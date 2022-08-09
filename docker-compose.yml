@@ -29,6 +29,10 @@ services:
     environment:
       TZ: Asia/Tokyo
 
+  runner:
+    <<: *app
+    command: /bin/sh
+
 volumes:
   postgres_volume:
   gem_data:
